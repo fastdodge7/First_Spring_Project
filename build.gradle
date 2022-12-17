@@ -1,6 +1,6 @@
 buildscript{
     ext{ // ext라는 키워드는 build.gradle 파일에서 쓸 전역변수를 설정하는 키워드이다
-        springBootVersion = '2.1.7.RELEASE' // 스프링 부트의 버전을 전역 변수로 둠.
+        springBootVersion = '3.0.0' // 스프링 부트의 버전을 전역 변수로 둠.
     }
     repositories{
         mavenCentral()
@@ -24,8 +24,8 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
