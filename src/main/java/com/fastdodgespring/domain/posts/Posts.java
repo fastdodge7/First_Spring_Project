@@ -1,5 +1,6 @@
 package com.fastdodgespring.domain.posts;
 
+import com.fastdodgespring.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor // 기본 생성자를 만들어준다
 @Entity // 이제 이 클래스는 DB상의 한 테이블과 링크될 것이라는 것을 나타내는 어노테이션
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id // 이 필드가 해당 테이블의 Primary Key가 된다는 어노테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -49,5 +49,3 @@ public class PostsApiController {
 *
 * */
 
-
-// @Entity는 무엇인가?
