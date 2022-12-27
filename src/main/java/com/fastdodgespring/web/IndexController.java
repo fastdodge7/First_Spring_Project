@@ -5,10 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class IndexController {
+public class IndexController { // 페이지와 관련된 모든 일을 담당하는 컨트롤러
     @GetMapping(value = "/") // 이 URL로 요청이 들어오면,
     public String index(){
         return "index"; // 이 문자열이 View Resolver에게 들어간다. 자세한 내용은 https://yenbook.tistory.com 을 참고하자.
+    }
+
+    @GetMapping("/posts/save") // 이 URL로 요청이 들어오면
+    public String postsSave(){
+        return "posts-save"; // 자동으로 posts-save.mustache를 불러온다.
     }
 }
 /*
