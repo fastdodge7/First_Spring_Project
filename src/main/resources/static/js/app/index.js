@@ -1,7 +1,9 @@
-var main = {
+var index = {
     init: function() {
         var _this = this;
-        $('#btn-save').on('click', function() {_this.save();});
+        $('#btn-save').on('click', function() {
+            _this.save();
+        });
     },
     save : function() {
         var data = {
@@ -25,4 +27,4 @@ var main = {
     }
 };
 
-main.init();
+index.init();
