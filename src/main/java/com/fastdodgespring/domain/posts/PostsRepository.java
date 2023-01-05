@@ -1,7 +1,10 @@
 package com.fastdodgespring.domain.posts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /*
 * 개발자들은 같은 단어도 전혀 다른 의미로 사용하는 동음이의어가 꽤 되는 것 같다...
@@ -17,4 +20,6 @@ import org.springframework.stereotype.Repository;
 // 참고로 Repository와 Entity는 반드시 같은 위치에 있어야 한다.(같은 패키지 안에 같은 위치)
 @Repository
 public interface PostsRepository extends JpaRepository<Posts, Long> {
+    @Query("SELECT p FROM Posts as p ORDER BY p.id DESC")
+    List<Posts> findAllDesc();
 }

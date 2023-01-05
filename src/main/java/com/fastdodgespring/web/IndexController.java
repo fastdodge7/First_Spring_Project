@@ -1,19 +1,43 @@
 package com.fastdodgespring.web;
 
+import com.fastdodgespring.service.posts.PostsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+@RequiredArgsConstructor
 @Controller
 public class IndexController { // 페이지와 관련된 모든 일을 담당하는 컨트롤러
+    private final PostsService postsService;
+
     @GetMapping(value = "/") // 이 URL로 요청이 들어오면,
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("posts", postsService.findAllDesc());
+        /*
+        * 위 코드는 우리가 사용하는 템플릿 엔진(본 프로젝트에서는 mustache, 그 외에는 대표적으로 JSP 등등)에서
+        * 선언해 놓은 변수에 findAllDesc 메서드 실행 결과로 나오는 리스트를 넘겨주는 역할을 한다.
+        *
+        * Model 클래스는 Spring에서 꽤 특수한 클래스이다.
+        * 일종의 DTO처럼, 컨트롤러 클래스의 메서드에는 Model을 파라미터로 넣을 수 있는데, 얘는 뷰(view)단으로 전달할 데이터를
+        * 담는 역할을 한다. 별도의 작업 없이, Spring에서 자동으로 메서드에 사용할 Model 객체를 주입해 준다.
+        * */
         return "index"; // 이 문자열이 View Resolver에게 들어간다. 자세한 내용은 https://yenbook.tistory.com 을 참고하자.
     }
 
     @GetMapping("/posts/save") // 이 URL로 요청이 들어오면
     public String postsSave(){
         return "posts-save"; // 자동으로 posts-save.mustache를 불러온다.
+    }
+    // posts-save.mustache를 보면, 글 작성 화면에서는 DB쪽의 데이터를 보여줄 필요가 없으므로, Model 객체가 파라미터로 들어가지 않는다.
+    // View 단으로 보내야 할 데이터가 따로 없다는 뜻.
+
+    @GetMapping("/posts/update/{id}")
+    public String postsUpdate(@PathVariable Long id, Model model){
+        model.addAttribute("post", postsService.findById(id));
+        return "posts-update"; // 자동으로 posts-save.mustache를 불러온다.
     }
 }
 /*

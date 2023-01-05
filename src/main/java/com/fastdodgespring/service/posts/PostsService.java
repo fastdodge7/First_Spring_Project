@@ -2,6 +2,7 @@ package com.fastdodgespring.service.posts;
 
 import com.fastdodgespring.domain.posts.Posts;
 import com.fastdodgespring.domain.posts.PostsRepository;
+import com.fastdodgespring.web.dto.PostsListResponseDto;
 import com.fastdodgespring.web.dto.PostsResponseDto;
 import com.fastdodgespring.web.dto.PostsSaveRequestDto;
 import com.fastdodgespring.web.dto.PostsUpdateRequestDto;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +23,13 @@ public class PostsService {
     public Long save(PostsSaveRequestDto requestDto)
     {
         return postsRepository.save(requestDto.toEntity()).getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream() // stream 메서드를 통해 List로부터 stream 객체를 생성
+                .map(PostsListResponseDto::new)       // 생성자 레퍼런스.https://tourspace.tistory.com/7에 자세한 설명이 되어있음
+                .collect(Collectors.toList());        // 일단 PostsListResponseDto의 생성자에 파라미터로 List의 원소가 들어간다 이해하자.
     }
 
     @Transactional
