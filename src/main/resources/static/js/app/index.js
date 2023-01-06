@@ -9,6 +9,10 @@ var index = {
         $('#btn-update').on('click', function() {
             _this.update();
         });
+
+        $('#btn-delete').on('click', function() {
+            _this.delete();
+        });
     },
     save : function() {
         var data = {
@@ -50,6 +54,25 @@ var index = {
             data: JSON.stringify(data)
         }).done(function () {
             alert('글이 수정되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    delete : function() {
+
+        // Delete 요청시에, id 정보만 필요함.
+        var id = $("#id").val();
+
+        $.ajax({ // jQuery.ajax와 같은 의미. $문자가 jQuery를 지칭하는 식별자임.
+            type: 'DELETE',
+            url: '/api/v1/posts/' + id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(id)
+        }).done(function () {
+            alert('글이 삭제되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));

@@ -39,6 +39,12 @@ public class IndexController { // 페이지와 관련된 모든 일을 담당하
         model.addAttribute("post", postsService.findById(id));
         return "posts-update"; // 자동으로 posts-save.mustache를 불러온다.
     }
+
+    @GetMapping("/posts/delete/{id}")
+    public String postsDelete(@PathVariable Long id, Model model){
+        model.addAttribute("post", postsService.findById(id));
+        return "posts-update"; // 자동으로 posts-save.mustache를 불러온다.
+    }
 }
 /*
 * mustache플러그인이 저 index라는 문자열이 리턴될 때, 자동으로 index.mustache 파일이 있는 경로를 생성해서 view resolver에게

@@ -84,4 +84,17 @@ public class PostsService {
 //        return id;
     }
 
+    @Transactional
+    public Long delete(Long id)
+    {
+        Posts post = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No matching posts with id : " + id));
+        postsRepository.delete(post);
+        return id;
+        /*
+        * postsRepository는 JpaRepository를 implement 하고 있으므로, Jpa에서 제공하는 delete 기능을 이용할 수 있음.
+        *
+        * */
+    }
+
 }
