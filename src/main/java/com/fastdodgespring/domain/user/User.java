@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Entity
+@Entity(name = "`user`")
 public class User extends BaseTimeEntity { // 사용자 정보를 담을 DB 테이블!
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +36,7 @@ public class User extends BaseTimeEntity { // 사용자 정보를 담을 DB 테�
     private Role role;
 
     @Builder
-    public User(String name, String email, String Picture, Role role)
+    public User(String name, String email, String picture, Role role)
     {
         this.name = name;
         this.email = email;

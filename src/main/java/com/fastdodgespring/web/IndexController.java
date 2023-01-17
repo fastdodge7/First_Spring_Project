@@ -1,6 +1,8 @@
 package com.fastdodgespring.web;
 
+import com.fastdodgespring.config.auth.dto.SessionUser;
 import com.fastdodgespring.service.posts.PostsService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class IndexController { // 페이지와 관련된 모든 일을 담당하는 컨트롤러
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     @GetMapping(value = "/") // 이 URL로 요청이 들어오면,
     public String index(Model model){
@@ -24,6 +27,10 @@ public class IndexController { // 페이지와 관련된 모든 일을 담당하
         * 일종의 DTO처럼, 컨트롤러 클래스의 메서드에는 Model을 파라미터로 넣을 수 있는데, 얘는 뷰(view)단으로 전달할 데이터를
         * 담는 역할을 한다. 별도의 작업 없이, Spring에서 자동으로 메서드에 사용할 Model 객체를 주입해 준다.
         * */
+
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if(user != null)
+            model.addAttribute("userName", user.getName());
         return "index"; // 이 문자열이 View Resolver에게 들어간다. 자세한 내용은 https://yenbook.tistory.com 을 참고하자.
     }
 
