@@ -20,7 +20,7 @@ public class IndexController { // 페이지와 관련된 모든 일을 담당하
     @GetMapping(value = "/") // 이 URL로 요청이 들어오면,
     public String index(Model model, @LoginUser SessionUser user){
         /*
-        *
+        * user 파라미터는 @LoginUser 어노테이션의 처리 로직을 거친 후에 파라미터로 들어오게 된다.
         * */
         model.addAttribute("posts", postsService.findAllDesc());
         /*

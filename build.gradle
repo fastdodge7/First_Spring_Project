@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation('org.springframework.session:spring-session-jdbc')
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-mustache')
     implementation('org.projectlombok:lombok')
